@@ -131,7 +131,7 @@
             <position x="360" y="302"/>
         </graphic>
     </graphics>
-    <description>click on login</description>
+    <description>send login request</description>
     <xlproperties/>
     <coreproperties>
         <categories>
