@@ -56,7 +56,7 @@
                 android:layout_weight="1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:src="@drawable/acceuil"
+                android:src="@drawable/menu1"
                 app:shapeAppearanceOverlay="@style/MenuImage" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -68,7 +68,7 @@
                 android:layout_weight="1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:src="@drawable/recherche"
+                android:src="@drawable/menu2"
                 app:shapeAppearanceOverlay="@style/MenuImage" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:src="@drawable/signalement"
+                android:src="@drawable/menu3"
                 app:shapeAppearanceOverlay="@style/MenuImage" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -92,7 +92,7 @@
                 android:layout_weight="1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:src="@drawable/statistiques"
+                android:src="@drawable/menu4"
                 app:shapeAppearanceOverlay="@style/MenuImage" />
 
         </LinearLayout>
