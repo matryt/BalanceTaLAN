@@ -1,6 +1,8 @@
 package edu.polytech.balancetalan;
 
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,35 +18,45 @@ public class ControlActivity extends AppCompatActivity implements Notifiable, Me
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
+
+        int menuNumber = 1;
+
+        Intent intent = getIntent();
+        if(intent!=null){
+            menuNumber = intent.getIntExtra(getString(R.string.index),1);
+            Log.d(TAG,"received menu#"+menuNumber);
+        }
+
+        Bundle args = new Bundle();
+        args.putInt(getString(R.string.index), menuNumber);
+        MenuFragment menu = new MenuFragment();
+        menu.setArguments(args);
+        Log.d(TAG,"send to MenuFragment menu#"+menuNumber);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.menu_fragment, menu);
+        transaction.commit();
     }
 
     @Override
     public void onMenuChange(int index) {
-        Fragment fragment;
-        switch (index) {
-            case 1:
-                fragment = new Screen1Fragment();
-                break;
-            case 2:
+        Fragment fragment = null;
+        switch (index){
+            case 0: fragment = new Screen1Fragment(); break;
+            case 1: {
                 fragment = new Screen2Fragment();
-                break;
-            case 3:
-                fragment = new Screen3Fragment();
-                break;
-            case 4:
-                fragment = new Screen4Fragment();
-                break;
-            case 5:
-                fragment = new Screen5Fragment();
-                break;
-            case 6:
-                fragment = new Screen6Fragment();
-                break;
-            default:
-                throw new AssertionError("Fragment " + index + "inconnu !");
+                //Bundle args = new Bundle();
+                //args.putInt(getString(R.string.seekbarvalue), seekBarValue);
+                //fragment.setArguments(args);
+            }  break;
+            case 2: fragment = new Screen3Fragment(); break;
+            case 3: fragment = new Screen4Fragment(); break;
+            case 4: fragment = new Screen5Fragment(); break;
+            case 5: fragment = new Screen6Fragment(); break;
+            default: fragment = new Screen1Fragment();
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_screen1, fragment);
+        transaction.replace(R.id.fragment_main, fragment);
+        transaction.addToBackStack(null); // to be able to browse with back button...
         transaction.commit();
     }
 
@@ -57,7 +69,7 @@ public class ControlActivity extends AppCompatActivity implements Notifiable, Me
     public void onDataChange(int numFragment, Object object) {
         Log.d(TAG, "Le fragment " + numFragment + "a eu un changement de données !");
         if (numFragment == 2) {
-            seekBarValue = (int) object;
+            seekBarValue = (Integer) object;
         }
     }
 }
