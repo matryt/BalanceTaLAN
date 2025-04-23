@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity implements Notifiable {
         animationDrawable.start();
 
         findViewById(R.id.statistics).setOnClickListener(clic -> {
+            intent.putExtra("button_number", 1);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.searchpb).setOnClickListener(clic -> {
+            intent.putExtra("button_number", 2);
             startActivity(intent);
         });
     }
