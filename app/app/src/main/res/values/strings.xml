@@ -8,4 +8,13 @@
     <string name="screen1_button">GO</string>
     <string name="title">demo title</string>
     <string name="message">demo message</string>
+    <string name="open_ticket_button_content">J\'ai un probleme</string>
+    <string name="search_problem_content">Chercher un probleme</string>
+    <string name="map_button">Carte</string>
+    <string name="title_input_box_content">Titre du problème</string>
+    <string name="problem_description_input">Description du problème</string>
+    <string name="lastname_input">Nom</string>
+    <string name="firstname_input">Prénom</string>
+    <string name="zone_input">Zone</string>
+    <string name="send_ticket_button_text">Envoyer le problème</string>
 </resources>

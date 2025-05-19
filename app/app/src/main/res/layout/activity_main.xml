@@ -18,42 +18,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/statistics" />
+        app:layout_constraintBottom_toTopOf="@id/map_button" />
 
     <Button
-        android:id="@+id/statistics"
+        android:id="@+id/map_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Statistiques"
+        android:text="@string/map_button"
         android:textColor="@android:color/black"
         android:backgroundTint="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/problem"
+        app:layout_constraintBottom_toTopOf="@id/open_ticket_button"
         android:layout_marginTop="16dp"/>
 
     <Button
-        android:id="@+id/problem"
+        android:id="@+id/open_ticket_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="J'ai un probleme"
+        android:text="@string/open_ticket_button_content"
         android:textColor="@android:color/white"
         android:backgroundTint="@android:color/holo_red_light"
-        app:layout_constraintTop_toBottomOf="@id/statistics"
+        app:layout_constraintTop_toBottomOf="@id/map_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/searchpb"
+        app:layout_constraintBottom_toTopOf="@id/search_ticket_button"
         android:layout_marginTop="16dp"/>
 
     <Button
-        android:id="@+id/searchpb"
+        android:id="@+id/search_ticket_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chercher un probleme"
+        android:text="@string/search_problem_content"
         android:textColor="@android:color/white"
         android:backgroundTint="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/problem"
+        app:layout_constraintTop_toBottomOf="@id/open_ticket_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
@@ -65,7 +65,7 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/mainlogo_animation"
-        app:layout_constraintTop_toBottomOf="@id/searchpb"
+        app:layout_constraintTop_toBottomOf="@id/search_ticket_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
