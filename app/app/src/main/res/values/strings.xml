@@ -6,4 +6,6 @@
     <string name="screen1_title">Main fragment</string>
     <string name="screen1_text">This app automatically inflates by Android system because this fragment is static</string>
     <string name="screen1_button">GO</string>
+    <string name="title">demo title</string>
+    <string name="message">demo message</string>
 </resources>

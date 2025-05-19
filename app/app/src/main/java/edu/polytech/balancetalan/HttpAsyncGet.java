@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @author Frédéric RALLO - March 2023
  */
 public class HttpAsyncGet<T>{
-    private static final String TAG = "fred " + HttpAsyncGet.class.getSimpleName();    //Pour affichage en cas d'erreur
+    private static final String TAG = "balance " + HttpAsyncGet.class.getSimpleName();    //Pour affichage en cas d'erreur
     private final Class<T> clazz;
     private List<T> itemList;
     private final HttpHandler webService;
