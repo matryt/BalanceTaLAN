@@ -45,4 +45,7 @@ dependencies {
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
+    implementation("org.osmdroid:osmdroid-android:6.0.2")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }
