@@ -7,18 +7,11 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -37,12 +30,17 @@ public class MainActivity extends AppCompatActivity implements Notifiable {
         AnimationDrawable animationDrawable = (AnimationDrawable) imageView.getDrawable();
         animationDrawable.start();
 
-        findViewById(R.id.statistics).setOnClickListener(clic -> {
+        findViewById(R.id.open_ticket_button).setOnClickListener(clic -> {
             intent.putExtra("button_number", 1);
             startActivity(intent);
         });
 
-        findViewById(R.id.searchpb).setOnClickListener(clic -> {
+        findViewById(R.id.map_button).setOnClickListener(clic -> {
+            intent.putExtra("button_number", 3);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.search_ticket_button).setOnClickListener(clic -> {
             intent.putExtra("button_number", 2);
             startActivity(intent);
         });
