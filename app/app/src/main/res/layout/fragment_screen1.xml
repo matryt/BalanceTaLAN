@@ -8,81 +8,36 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/buttonImage"
+            style="@android:style/Widget.Button"
+            app:backgroundTint="@null"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:text="Prendre une photo"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:background="@drawable/my_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/fond1"
-            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:layout_gravity="center"
             android:scaleType="centerCrop"
-            />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/menu_green"
             app:layout_constraintTop_toTopOf="parent"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="45dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:id="@+id/menuLayout"
-                android:paddingStart="40dp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:src="@drawable/rallo"
-                    app:shapeAppearanceOverlay="@style/RoundedImage"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/roundImage"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="15dp"
-                    android:text="@string/screen1_title"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:background="@color/menu_green"
-                    android:paddingRight="40dp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/screen1_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/menuLayout"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:text="@string/screen1_text"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:paddingTop="20dp"/>
-            
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/screen1_button"
-                app:layout_constraintTop_toBottomOf="@+id/screen1_text"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:id="@+id/screen1_button"
-                />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
