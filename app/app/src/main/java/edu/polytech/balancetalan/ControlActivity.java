@@ -23,7 +23,7 @@ public class ControlActivity extends AppCompatActivity implements Notifiable, Me
 
         Intent intent = getIntent();
         if(intent!=null){
-            menuNumber = intent.getIntExtra(getString(R.string.index),1);
+            menuNumber = intent.getIntExtra("button_number",1);
             Log.d(TAG,"received menu#"+menuNumber);
         }
 
@@ -67,9 +67,10 @@ public class ControlActivity extends AppCompatActivity implements Notifiable, Me
 
     @Override
     public void onDataChange(int numFragment, Object object) {
-        Log.d(TAG, "Le fragment " + numFragment + "a eu un changement de données !");
+        Log.d(TAG, "Le fragment " + numFragment + " a eu un changement de données !");
         if (numFragment == 2) {
-            seekBarValue = (Integer) object;
+            String searchText = (String) object;
+            Log.d(TAG, "Le contenu de la barre de recherche est : " + searchText);
         }
     }
 }

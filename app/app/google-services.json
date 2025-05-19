@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "529864902991",
+    "project_id": "balance-48256",
+    "storage_bucket": "balance-48256.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529864902991:android:cd07bfc74bd4d940671d3a",
+        "android_client_info": {
+          "package_name": "edu.polytech.balancetalan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVH1-oi_wLMjb9OS6hJxDnbls2LZulADk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
