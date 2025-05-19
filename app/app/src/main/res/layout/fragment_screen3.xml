@@ -3,12 +3,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".Screen3Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="#F1E5D2"
+        tools:context=".MainActivity">
+
+
+        <!-- Image de fond avec alpha -->
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fond3"
+            android:alpha="0.4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+        <TextView
+            android:id="@+id/profOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500 pts de vie max"
+            android:textColor="#FFC107"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="@font/pokemonsolid"
+            android:textSize="40sp"
+            android:shadowColor="#000000"
+            android:shadowRadius="8"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/prof"
+            app:shapeAppearanceOverlay="@style/RoundedImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profOrder"/>
+
+
+
+        <TextView
+            android:id="@+id/pointsOfLifeBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="30sp"
+            android:textColor="#FFC107"
+            android:gravity="center"
+            android:fontFamily="@font/pokemonsolid"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="-10dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="8"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            app:layout_constraintBottom_toBottomOf="@id/profPicture"
+            app:layout_constraintRight_toRightOf="@id/profPicture"/>
+
+
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PLAY"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
