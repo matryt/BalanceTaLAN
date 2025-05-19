@@ -49,21 +49,17 @@ public class HttpAsyncGet<T>{
 
 
     public void doInBackGround(String urlAddress){
-        // get the data to parse
+        // get the jsonStr to parse
         String jsonStr = webService.makeServiceCall(urlAddress);
         ObjectMapper mapper = new ObjectMapper();
-        JsonResponse<T> response;
         try {
-            //todo:  itemList = mapper.readValue(data, new TypeReference<List<T>>(){});   was not possible
+            //todo:  itemList = mapper.readValue(jsonStr, new TypeReference<List<T>>(){});   was not possible
             //       the previous line provided List<Object> instead of List<T>
             //       because "l'argument List<T> dans new TypeReference<List<T>>(){} est un type générique non résolu".
-             response = mapper.readValue(jsonStr, JsonResponse.class);
+            itemList = mapper.readValue(jsonStr, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        itemList = (List<T>) response.getData().stream()
-                .map(data -> Ticket.createFromLinkedHashMap((LinkedHashMap<String, String>) data))
-                .collect(Collectors.toList());
     }
 
     public List<T> getItemResult() {

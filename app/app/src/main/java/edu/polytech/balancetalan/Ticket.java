@@ -5,18 +5,17 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Ticket implements Parcelable {
+    int id;
     String title;
     String firstName;
     String lastName;
     String place;
     String category;
 
-    Map<String, String> messages;
+    List<Integer> messages;
 
     public Ticket() {super();}
 
@@ -26,18 +25,10 @@ public class Ticket implements Parcelable {
         place = in.readString();
         category = in.readString();
         title = in.readString();
-        messages = in.readHashMap(String.class.getClassLoader());
-    }
-
-    static Ticket createFromLinkedHashMap(LinkedHashMap <String, String> map) {
-        Ticket ticket = new Ticket();
-        ticket.setFirstName(map.get("firstName"));
-        ticket.setLastName(map.get("lastName"));
-        ticket.setPlace(map.get("place"));
-        ticket.setCategory(map.get("category"));
-        ticket.setTitle(map.get("title"));
-        //ticket.setMessages(map);
-        return ticket;
+        int size = in.readInt();
+        for (int i = 0; i < size; i++) {
+            messages.add(in.readInt());
+        }
     }
 
     public static final Creator<Ticket> CREATOR = new Creator<Ticket>() {
@@ -58,7 +49,6 @@ public class Ticket implements Parcelable {
         this.title = title;
         this.firstName = "";
         this.lastName = "";
-        this.messages = null;
     }
 
     public String getTitle() {
@@ -101,14 +91,6 @@ public class Ticket implements Parcelable {
         this.category = category;
     }
 
-    public Map<String, String> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(Map<String, String> messages) {
-        this.messages = messages;
-    }
-
     @Override
     public String toString() {
         return "Ticket: " + title;
@@ -119,6 +101,22 @@ public class Ticket implements Parcelable {
         return 0;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Integer> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Integer> messages) {
+        this.messages = messages;
+    }
+
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(firstName);
@@ -126,6 +124,9 @@ public class Ticket implements Parcelable {
         dest.writeString(place);
         dest.writeString(category);
         dest.writeString(title);
-        dest.writeMap(messages);
+        dest.writeInt(messages.size());
+        for (int id: messages) {
+            dest.writeInt(id);
+        }
     }
 }
