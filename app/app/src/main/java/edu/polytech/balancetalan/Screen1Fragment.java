@@ -121,17 +121,6 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
         descriptionInput = view.findViewById(R.id.description_input_edit_text);
         lastNameInput = view.findViewById(R.id.lastname_input_edit_text);
         firstNameInput = view.findViewById(R.id.firstname_input_edit_text);
-        zoneInput = view.findViewById(R.id.zone_input_edit_text);
-        numberInput = view.findViewById(R.id.number_input_edit_text);
-
-        Spinner spinner = view.findViewById(R.id.spinner);
-        setupSpinner(view, spinner);
-        Spinner type_spinner = view.findViewById(R.id.type_spinner);
-        Spinner area_spinner = view.findViewById(R.id.area_spinner);
-        Spinner place_spinner = view.findViewById(R.id.table_spinner);
-        setupSpinner(view, type_spinner);
-        setupSpinner(view, area_spinner);
-        setupSpinner(view, place_spinner);
 
         List<Area>areaList = getAreasFromApi();
 
@@ -139,6 +128,14 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
         for (Area area : areaList) {
             areaLetters.add(String.valueOf(area.getLetter()));
         }
+
+        Spinner type_spinner = view.findViewById(R.id.type_spinner);
+        Spinner area_spinner = view.findViewById(R.id.area_spinner);
+        Spinner place_spinner = view.findViewById(R.id.table_spinner);
+        typeSetupSpinner(view, type_spinner);
+        areaSetupSpinner(view, area_spinner, areaList, place_spinner);
+
+
 
 
 
@@ -200,11 +197,46 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
         );
     }
 
-    private void setupSpinner(View view, Spinner spinner){
+    private void typeSetupSpinner(View view, Spinner spinner){
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_item, ticketTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+    }
+
+    private void areaSetupSpinner(View view, Spinner areaSpinner, List<Area> areaList, Spinner placeSpinner) {
+        List<String> areaLetters = new ArrayList<>();
+        for (Area area : areaList) {
+            areaLetters.add(String.valueOf(area.getLetter()));
+        }
+        ArrayAdapter<String> areaAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, areaLetters);
+        areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        areaSpinner.setAdapter(areaAdapter);
+
+        // Update place spinner when area changes
+        areaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+                placeSetupSpinner(view, placeSpinner, areaList.get(position).getPlaces());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Initialize place spinner for the first area
+        if (!areaList.isEmpty()) {
+            placeSetupSpinner(view, placeSpinner, areaList.get(0).getPlaces());
+        }
+    }
+
+    private void placeSetupSpinner(View view, Spinner placeSpinner, List<Place> places) {
+        List<String> placeNumbers = new ArrayList<>();
+        for (Place place : places) {
+            placeNumbers.add(String.valueOf(place.getNumber()));
+        }
+        ArrayAdapter<String> placeAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, placeNumbers);
+        placeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        placeSpinner.setAdapter(placeAdapter);
     }
     private void setupTextValidationButton(View view, Button validateButton){
         validateButton.setEnabled(false);
