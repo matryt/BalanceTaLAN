@@ -2,10 +2,12 @@ package edu.polytech.balancetalan;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -34,8 +37,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelectedListener, PostExecuteActivity{
     private final static int NUM_FRAGMENT = 1;
     private static final String[] ticketTypes = {
             "Autre",
@@ -52,6 +56,9 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
             R.id.zone_input_edit_text,
             R.id.number_input_edit_text
     };
+
+    TextInputEditText titleInput, descriptionInput, lastNameInput, firstNameInput, zoneInput, numberInput;
+
     private Map<TextInputEditText, Boolean> textInputMap = new HashMap<>();
     private Notifiable notifiable;
     private final String TAG = "BalanceTaLan " + getClass().getSimpleName();
@@ -59,12 +66,11 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
     private ActivityResultLauncher<Intent> takePictureLauncher;
 
     private ActivityResultLauncher<String> requestPermissionLauncher;
-
-   public Screen1Fragment() {
-    }
+    private HttpAsyncPost asyncPost;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        asyncPost = new HttpAsyncPost("https://api-balancetalan.mathieucuvelier.fr/tickets");
         Log.d(TAG, "Fragment created");
         super.onCreate(savedInstanceState);
 
@@ -96,12 +102,20 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
                 imageViewPhoto.setVisibility(View.VISIBLE);
             }
         });
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_screen1, container, false);
+
+        titleInput = view.findViewById(R.id.title_input_edit_text);
+        descriptionInput = view.findViewById(R.id.description_input_edit_text);
+        lastNameInput = view.findViewById(R.id.lastname_input_edit_text);
+        firstNameInput = view.findViewById(R.id.firstname_input_edit_text);
+        zoneInput = view.findViewById(R.id.zone_input_edit_text);
+        numberInput = view.findViewById(R.id.number_input_edit_text);
 
         Spinner spinner = view.findViewById(R.id.spinner);
         setupSpinner(view, spinner);
@@ -129,26 +143,39 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
 
 
         validateButton.setOnClickListener(v -> {
-            List<String> inputFieldsContent = getInputFieldsContent(view);
-            inputFieldsContent.add(ticketTypes[spinner.getSelectedItemPosition()]);
+            SentTicket ticket = getInputFieldsContent(view, spinner);
             Log.d(TAG, "Button clicked");
-            Log.d(TAG, "Input fields content: " + inputFieldsContent);
-            if (notifiable != null) {
-
-            } else {
-                Log.e(TAG, "Notifiable is null");
-            }
+            Log.d(TAG, "Input fields content: " + ticket);
+            asyncPost.sendData(ticket, this, new ProgressDialog(requireContext()));
         });
     }
 
-    private List<String> getInputFieldsContent(View view) {
-        List<String> inputFieldsContent = new ArrayList<>();
+    private String getInputText(TextInputEditText input) {
+       return Objects.requireNonNull(input.getText()).toString();
+    }
 
-        for (int id : inputIds) {
-            TextInputEditText editText = view.findViewById(id);
-            inputFieldsContent.add(editText.getText().toString());
-        }
-        return inputFieldsContent;
+    private SentTicket getInputFieldsContent(View view, Spinner spinner) {
+        String title = getInputText(titleInput);
+        String description = getInputText(descriptionInput);
+        String firstName = getInputText(firstNameInput);
+        String lastName = getInputText(lastNameInput);
+        String zone = getInputText(zoneInput);
+        String number = getInputText(numberInput);
+
+        ImageView imageView = getView().findViewById(R.id.imageViewPhoto);
+        Bitmap imageBitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+
+        return new SentTicket(
+                title,
+                firstName,
+                lastName,
+                number,
+                ticketTypes[spinner.getSelectedItemPosition()],
+                List.of(imageBitmap),
+                zone,
+                requireContext(),
+                description
+        );
     }
 
     private void setupSpinner(View view, Spinner spinner){
@@ -262,4 +289,12 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
         takePictureLauncher.launch(intent);
     }
 
+    @Override
+    public void onPostExecute(List itemList) {
+    }
+
+    @Override
+    public void runOnUiThread(Runnable runable) {
+       requireActivity().runOnUiThread(runable);
+    }
 }
