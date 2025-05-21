@@ -39,7 +39,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+
 public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelectedListener, PostExecuteActivity{
+
     private final static int NUM_FRAGMENT = 1;
     private static final String[] ticketTypes = {
             "Autre",
@@ -53,8 +55,6 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
             R.id.description_input_edit_text,
             R.id.lastname_input_edit_text,
             R.id.firstname_input_edit_text,
-            R.id.zone_input_edit_text,
-            R.id.number_input_edit_text
     };
 
     TextInputEditText titleInput, descriptionInput, lastNameInput, firstNameInput, zoneInput, numberInput;
@@ -105,6 +105,13 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
+    private List<Area> getAreasFromApi() {
+        List<Area> areas = new ArrayList<>();
+        areas.add(new Area('A', List.of(new Place(1), new Place(2), new Place(3))));
+        areas.add(new Area('B', List.of(new Place(4), new Place(5))));
+        return areas;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -119,10 +126,25 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
 
         Spinner spinner = view.findViewById(R.id.spinner);
         setupSpinner(view, spinner);
+        Spinner type_spinner = view.findViewById(R.id.type_spinner);
+        Spinner area_spinner = view.findViewById(R.id.area_spinner);
+        Spinner place_spinner = view.findViewById(R.id.table_spinner);
+        setupSpinner(view, type_spinner);
+        setupSpinner(view, area_spinner);
+        setupSpinner(view, place_spinner);
+
+        List<Area>areaList = getAreasFromApi();
+
+        List<String> areaLetters = new ArrayList<>();
+        for (Area area : areaList) {
+            areaLetters.add(String.valueOf(area.getLetter()));
+        }
+
+
 
         Button validateButton = view.findViewById(R.id.send_ticket_button);
         setupTextValidationButton(view, validateButton);
-        setupTicketSending(view, validateButton, spinner);
+        setupTicketSending(view, validateButton, type_spinner);
 
         // Lorsque le bouton image est cliqué
         view.findViewById(R.id.buttonImage).setOnClickListener(v -> {
