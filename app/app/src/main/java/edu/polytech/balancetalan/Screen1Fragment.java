@@ -105,13 +105,26 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
-    private List<Area> getAreasFromApi() {
-        List<Area> areas = new ArrayList<>();
-        areas.add(new Area('A', List.of(new Place(1), new Place(2), new Place(3))));
-        areas.add(new Area('B', List.of(new Place(4), new Place(5))));
-        return areas;
+    private void getAreasFromApi(View view) {
+        String url = "https://api-balancetalan.mathieucuvelier.fr/areas";
+        new HttpAsyncGet<>(url, Area.class, new PostExecuteActivity<Area>() {
+            @Override
+            public void onPostExecute(List<Area> areaList) {
+                Spinner type_spinner = view.findViewById(R.id.type_spinner);
+                Spinner area_spinner = view.findViewById(R.id.area_spinner);
+                Spinner place_spinner = view.findViewById(R.id.table_spinner);
+                typeSetupSpinner(view, type_spinner);
+                areaSetupSpinner(view, area_spinner, areaList, place_spinner);
+                Button validateButton = view.findViewById(R.id.send_ticket_button);
+                setupTextValidationButton(view, validateButton);
+                setupTicketSending(view, validateButton, type_spinner);
+            }
+            @Override
+            public void runOnUiThread(Runnable runnable) {
+                requireActivity().runOnUiThread(runnable);
+            }
+        }, null);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -122,26 +135,7 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
         lastNameInput = view.findViewById(R.id.lastname_input_edit_text);
         firstNameInput = view.findViewById(R.id.firstname_input_edit_text);
 
-        List<Area>areaList = getAreasFromApi();
-
-        List<String> areaLetters = new ArrayList<>();
-        for (Area area : areaList) {
-            areaLetters.add(String.valueOf(area.getLetter()));
-        }
-
-        Spinner type_spinner = view.findViewById(R.id.type_spinner);
-        Spinner area_spinner = view.findViewById(R.id.area_spinner);
-        Spinner place_spinner = view.findViewById(R.id.table_spinner);
-        typeSetupSpinner(view, type_spinner);
-        areaSetupSpinner(view, area_spinner, areaList, place_spinner);
-
-
-
-
-
-        Button validateButton = view.findViewById(R.id.send_ticket_button);
-        setupTextValidationButton(view, validateButton);
-        setupTicketSending(view, validateButton, type_spinner);
+        getAreasFromApi(view);
 
         // Lorsque le bouton image est cliqué
         view.findViewById(R.id.buttonImage).setOnClickListener(v -> {
