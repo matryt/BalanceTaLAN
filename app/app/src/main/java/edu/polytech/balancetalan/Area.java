@@ -6,6 +6,10 @@ public class Area {
     private char letter;
     private List<Place> places;
 
+    public Area() {
+        // Default constructor
+    }
+
     public Area(char letter, List<Place> places) {
         this.letter = letter;
         this.places = places;
