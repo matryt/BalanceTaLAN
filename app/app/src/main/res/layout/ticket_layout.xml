@@ -6,38 +6,61 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!-- Titre du problème LAN -->
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Problème LAN"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/white"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <!-- Titre du problème LAN -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Problème LAN"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/white"/>
 
 
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Catégorie"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/title"/>
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Catégorie"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/title"/>
 
 
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Emplacement"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/category"/>
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Emplacement"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/category"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/mathieu"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
