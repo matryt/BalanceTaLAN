@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.List;
+import java.util.Map;
 
 public class TicketAdapter extends BaseAdapter {
     List<Ticket> ticketList;
@@ -54,7 +55,8 @@ public class TicketAdapter extends BaseAdapter {
         place.setText(ticket.getPlace());
 
         ImageView imageView = layout.findViewById(R.id.imageViewPhoto);
-        imageView.setImageResource(R.drawable.mathieu);
+        TicketType ticketType = TicketType.getFromString(ticket.getCategory());
+        imageView.setImageResource(ticketType.getDrawable());
 
         layout.setOnClickListener(clic -> callBackActivity.onClicItem(position));
         return layout;
