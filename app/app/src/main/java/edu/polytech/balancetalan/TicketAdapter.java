@@ -19,18 +19,19 @@ public class TicketAdapter extends BaseAdapter {
 
     public TicketAdapter(List<Ticket> ticketList, Clickable callBackActivity) {
         this.ticketList = ticketList;
+        this.filteredList = ticketList;
         this.callBackActivity = callBackActivity;
         this.mInflater = LayoutInflater.from(callBackActivity.getContext());
     }
 
     @Override
     public int getCount() {
-        return ticketList.size();
+        return filteredList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return ticketList.get(position);
+        return filteredList.get(position);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class TicketAdapter extends BaseAdapter {
         TextView category = layout.findViewById(R.id.category);
         TextView place = layout.findViewById(R.id.location);
 
-        Ticket ticket = ticketList.get(position);
+        Ticket ticket = filteredList.get(position);
         title.setText(ticket.getTitle());
         category.setText(ticket.getCategory());
         place.setText(ticket.getPlace());

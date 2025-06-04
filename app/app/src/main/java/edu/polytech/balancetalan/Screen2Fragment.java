@@ -67,7 +67,6 @@ public class Screen2Fragment extends Fragment implements Clickable, PostExecuteA
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                // Appel de la méthode de filtrage chaque fois que le texte change
                 filterList(charSequence.toString());
                 notifiable.onDataChange(2, charSequence.toString());
             }

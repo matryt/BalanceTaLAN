@@ -27,6 +27,7 @@
         android:textSize="14sp"
         android:layout_marginBottom="4dp"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/title"/>
 
 
@@ -37,5 +38,6 @@
         android:text="Emplacement"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/category"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
