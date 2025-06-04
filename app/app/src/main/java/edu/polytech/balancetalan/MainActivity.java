@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements Notifiable {
         });
 
         findViewById(R.id.map_button).setOnClickListener(clic -> {
-            intent.putExtra("button_number", 3);
+            intent.putExtra("button_number", 4);
             startActivity(intent);
         });
 
