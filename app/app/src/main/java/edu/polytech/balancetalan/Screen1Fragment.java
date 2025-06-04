@@ -42,6 +42,7 @@ import java.util.Objects;
 
 public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelectedListener, PostExecuteActivity{
 
+    private boolean isPhotoTaken = false;
     private final static int NUM_FRAGMENT = 1;
     private static final String[] ticketTypes = {
             "Autre",
@@ -57,8 +58,8 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
             R.id.firstname_input_edit_text,
     };
 
-    TextInputEditText titleInput, descriptionInput, lastNameInput, firstNameInput, zoneInput, numberInput;
-
+    TextInputEditText titleInput, descriptionInput, lastNameInput, firstNameInput;
+    Spinner areaSpinner, tableSpinner;
     private Map<TextInputEditText, Boolean> textInputMap = new HashMap<>();
     private Notifiable notifiable;
     private final String TAG = "BalanceTaLan " + getClass().getSimpleName();
@@ -100,6 +101,11 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
 
                 // Rendre l'ImageView visible
                 imageViewPhoto.setVisibility(View.VISIBLE);
+
+                // Vérifier si la photo est valide et activier le bouton si on a une photo
+                isPhotoTaken = true;
+                Button sendButton = getView().findViewById(R.id.send_ticket_button);
+                sendButton.setEnabled(areAllInputsValid() && isPhotoTaken);
             }
         });
 
@@ -134,6 +140,8 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
         descriptionInput = view.findViewById(R.id.description_input_edit_text);
         lastNameInput = view.findViewById(R.id.lastname_input_edit_text);
         firstNameInput = view.findViewById(R.id.firstname_input_edit_text);
+        areaSpinner = view.findViewById(R.id.area_spinner);
+        tableSpinner = view.findViewById(R.id.table_spinner);
 
         getAreasFromApi(view);
 
@@ -167,13 +175,18 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
        return Objects.requireNonNull(input.getText()).toString();
     }
 
+    private String getSelectedItem(Spinner spinner){
+        String selectedValue = spinner.getSelectedItem().toString();
+        return selectedValue;
+    }
+
     private SentTicket getInputFieldsContent(View view, Spinner spinner) {
         String title = getInputText(titleInput);
         String description = getInputText(descriptionInput);
         String firstName = getInputText(firstNameInput);
         String lastName = getInputText(lastNameInput);
-        String zone = getInputText(zoneInput);
-        String number = getInputText(numberInput);
+        String zone = getSelectedItem(areaSpinner);
+        String number = getSelectedItem(tableSpinner);
 
         ImageView imageView = getView().findViewById(R.id.imageViewPhoto);
         Bitmap imageBitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
@@ -258,6 +271,7 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 textInputMap.put(editText, s.length() > 0);
                 button.setEnabled(areAllInputsValid());
+                Log.d("BalanceTaLan", "Text changed in " + isPhotoTaken + ": " + s.toString());
             }
 
             @Override
@@ -273,7 +287,7 @@ public class Screen1Fragment extends Fragment implements AdapterView.OnItemSelec
                 return false;
             }
         }
-        return true;
+        return true && isPhotoTaken; // Ensure photo is taken as well
     }
 
     @Override
