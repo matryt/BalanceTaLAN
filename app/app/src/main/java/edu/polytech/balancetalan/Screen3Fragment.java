@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class Screen3Fragment extends Fragment {
     private final String TAG = "BalanceTaLan " + getClass().getSimpleName();
@@ -38,7 +40,29 @@ public class Screen3Fragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_screen3, container, false);
+        View view = inflater.inflate(R.layout.fragment_screen3, container, false);
+
+        SeekBar seekBar = view.findViewById(R.id.seekBar);
+        TextView pointsOfLifeBlack = view.findViewById(R.id.pointsOfLifeBlack);
+
+        pointsOfLifeBlack.setText("0");
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                pointsOfLifeBlack.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         return view;
     }
